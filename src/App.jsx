@@ -6,7 +6,7 @@ import Navbar from './components/navbar'
 import Gestion from './components/Gestion'
 import { auth } from './firebase'
 import React from 'react'
-
+import Footer from './components/Footer'
 
 
 function App() {
@@ -34,6 +34,7 @@ function App() {
       </Routes>
     </div>
     </Router>
+    
   ):
   (<p>Loading...</p>)
 }
