@@ -1,5 +1,5 @@
 import React from 'react'
-import {db} from '../firebase'
+import {db, auth} from '../firebase'
 
 const Registro = () => {
  
@@ -12,18 +12,33 @@ const Registro = () => {
         const data=await db.collection('libros').get()
         //console.log(data.docs);
         const arrayData=data.docs.map(doc=>({id:doc.id,...doc.data()}))
-        setLista(arrayData)
+        setLista(arrayData.filter(libro => libro.disponibilidad == 'SI'))
       } catch (error) {
         console.error(error);
       }
     }
     obtenerdatos()
   },[])
+  const alquilarLibro = (idLibro) => {
+    const libro = db.collection("libros").doc(idLibro)
+    libro.get().then(res => {
+      const libroDoc = res.data()
+      const usuario = db.collection("usuarios").doc(auth.currentUser.email);
+      usuario.get().then(async (res2) => {
+        await libro.update({"disponibilidad": 'NO'})
+        await usuario.update({"librosPrestados": [...res2.data().librosPrestados, libroDoc]}) 
+      })
 
+    })
+
+  }
+  const devolverLibro = (idLibro) => {
+    console.log(idLibro)
+  }
   return (
     <div className='container'>
       
-      <h2 className='text-center text-primary'>Listado de Libros</h2>
+      <h2 className='text-center text-primary'>Libros Disponibles</h2>
      <table className="table table-bordered">
           <thead>
             <tr>
@@ -51,7 +66,7 @@ const Registro = () => {
                  onClick={()=>devolverLibro(elemento.id)} 
                  className='btn btn-danger float-end me-2'>Devolver</button>
                  <button 
-                 onClick={()=>alquilarLibro(elemento)} 
+                 onClick={()=>alquilarLibro(elemento.id)} 
                  className='btn btn-info float-end me-2'>Alquilar</button>
                  </td>
  
