@@ -153,33 +153,25 @@ const editarDatos=async(e)=>{
           ):
           null
         }
-       
+               <input type="text" 
+        placeholder='Ingrese el Titulo'
+        className='form-control mb-2'
+        onChange={(e)=>{setTitulo(e.target.value)}}
+        value={titulo}
+        />
+
         <input type="text" 
         placeholder='Ingrese el Autor'
         className='form-control mb-2'
-        onChange={(e)=>{setAutor(e.target.value.trim())}}
+        onChange={(e)=>{setAutor(e.target.value)}}
         value={autor}
         />
 
        <input type="text" 
         placeholder='Ingrese el Descripcion'
         className='form-control mb-2'
-        onChange={(e)=>{setDescripcion(e.target.value.trim())}}
+        onChange={(e)=>{setDescripcion(e.target.value)}}
         value={descripcion}
-        />
-
-        <input type="text" 
-        placeholder='Ingrese el Disponibilidad'
-        className='form-control mb-2'
-        onChange={(e)=>{setDisponibilidad(e.target.value.trim())}}
-        value={disponibilidad}
-        />
-
-        <input type="text" 
-        placeholder='Ingrese el Apellido'
-        className='form-control mb-2'
-        onChange={(e)=>{setTitulo(e.target.value.trim())}}
-        value={titulo}
         />
 
         <input type="text" 
@@ -188,6 +180,13 @@ const editarDatos=async(e)=>{
         onChange={(e)=>{setAño(e.target.value.trim())}}
         value={año}
         /> 
+
+        <input type="text" 
+        placeholder='Ingrese el Disponibilidad'
+        className='form-control mb-2'
+        onChange={(e)=>{setDisponibilidad(e.target.value.trim())}}
+        value={disponibilidad}
+        />
 
         <div className='d-grid gap-2'>
           {
@@ -204,11 +203,11 @@ const editarDatos=async(e)=>{
      <table className="table table-bordered">
           <thead>
             <tr>
+              <th>Titulo</th>
               <th>Autor</th>
               <th>Descripcion</th>
-              <th>Disponibilidad</th>
-              <th>Titulo</th>
               <th>Año</th>
+              <th>Disponible</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -218,20 +217,19 @@ const editarDatos=async(e)=>{
              (elemento)=>(
                  
                  <tr  key={elemento.id}>
-                 <td>{elemento.autor}</td>
-                 <td>{elemento.descripcion}</td>
-                 <td>{elemento.disponibilidad}</td>
-                 <td>{elemento.titulo}</td>
-                 <td>{elemento.año}</td>
-                 <td>
-                 <button 
-                 onClick={()=>eliminarDato(elemento.id)} 
-                 className='btn btn-danger float-end me-2'>Eliminar</button>
-                 <button 
-                 onClick={()=>editar(elemento)} 
-                 className='btn btn-warning float-end me-2'>Editar</button>
-                 </td>
- 
+                  <td>{elemento.titulo}</td>
+                  <td>{elemento.autor}</td>
+                  <td>{elemento.descripcion}</td>
+                  <td>{elemento.año}</td>
+                  <td>{elemento.disponibilidad}</td>
+                  <td>
+                    <button 
+                    onClick={()=>eliminarDato(elemento.id)} 
+                    className='btn btn-danger float-end me-2'>Eliminar</button>
+                    <button 
+                    onClick={()=>editar(elemento)} 
+                    className='btn btn-warning float-end me-2'>Editar</button>
+                  </td>
                </tr>
              )
            )
