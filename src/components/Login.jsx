@@ -5,9 +5,11 @@ import { useNavigate } from 'react-router-dom'
 const login = () => {
   const navigate=useNavigate()
   //hooks
+  const [nombre,setNombre]=React.useState('')
+  const [apellido,setApellido]=React.useState('')
   const [email,setEmail]=React.useState('')
   const [pass,setPass]=React.useState('')
-  const [modoregistro,setModoRegistro]=React.useState(false)
+  const [modoRegistro,setModoRegistro]=React.useState(false)
   const [error,setError]=React.useState(null)
 
   //guardar dato
@@ -26,7 +28,7 @@ const login = () => {
         return
     }
     setError(null)
-    if (modoregistro) {
+    if (modoRegistro) {
         registrar()
     } else {
         login()
@@ -36,8 +38,7 @@ const login = () => {
 //login
 const login=React.useCallback(async()=>{
   try {
-      const res=await auth.signInWithEmailAndPassword(email,pass)
-      console.log(res.user);
+      const res=await auth.signInWithEmailAndPassword(email,pass);
       setEmail('')
       setPass('')
       setError('')
@@ -59,14 +60,18 @@ const registrar=React.useCallback(async()=>{
       const res=await auth.createUserWithEmailAndPassword(email,pass)
       await db.collection('usuarios').doc(res.user.email).set(
           {
-              email:res.user.email,
-              id:res.user.uid
+            id:res.user.uid,
+            nombre,
+            apellido,
+            librosPrestados: [],
+            email:res.user.email,
+            tipo: 'Usuario'
           }
       )
-      console.log(res.user);
       setEmail('')
       setPass('')
       setError('')
+      setModoRegistro(false)
   } catch (error) {
       console.log(error.code);
       if (error.code==='auth/invalid-email') {
@@ -82,17 +87,34 @@ const registrar=React.useCallback(async()=>{
   return (
     <div>
         <h3 className='text-center text-primary'>
-            {modoregistro ? 'Registro de Usuarios': 'Login'}
+            {modoRegistro ? 'Registro de Usuarios': 'Login'}
             </h3>
         <div className='row justify-content-center'>
         <div className='col-12 col-sm-8 col-md-6 col-xl-4'>
             <form onSubmit={guardarDatos}>
-            {
+                {
                     error && (
                         <div className='alert alert-danger'>
                             {error}
                         </div>
                     )
+                }
+                {
+                    modoRegistro ? 
+                    (
+                        <div>
+                            <input type="text" 
+                            className='form-control mb-2'
+                            placeholder='Ingrese su nombre'
+                            onChange={e=>setNombre(e.target.value.trim())}
+                            />
+                            <input type="text" 
+                            className='form-control mb-2'
+                            placeholder='Ingrese su apellido'
+                            onChange={e=>setApellido(e.target.value.trim())}
+                            />
+                        </div>
+                    ): ''
                 }
                 <input type="email" 
                 className='form-control mb-2'
@@ -104,18 +126,19 @@ const registrar=React.useCallback(async()=>{
                 placeholder='Ingrese su Password'
                 onChange={e=>setPass(e.target.value.trim())}
                 />
+
                 <div className='d-grid gap-2'>
                     <button className='btn btn-outline-dark'>
                         {
-                            modoregistro ? 'Registrarse' :'Acceder'
+                            modoRegistro ? 'Registrarse' :'Acceder'
                         }
                     </button>
                     <button className='btn btn-outline-primary'
-                    onClick={()=>{setModoRegistro(!modoregistro)}}
+                    onClick={()=>{setModoRegistro(!modoRegistro)}}
                     type='button'
                     >
                         {
-                            modoregistro ? 'Ya estas registrado?': 'No tienes cuenta?'
+                            modoRegistro ? 'Ya estas registrado?': 'No tienes cuenta?'
                         }
                     </button>
                 </div>
