@@ -3,6 +3,7 @@ import Inicio from './components/inicio'
 import Login from './components/login'
 import Libros from './components/Libros'
 import Navbar from './components/navbar'
+import Gestion from './components/Gestion'
 import { auth } from './firebase'
 import React from 'react'
 
@@ -29,6 +30,7 @@ function App() {
        <Route path='/' element={<Inicio/>}/>
        <Route path='login' element={<Login/>}/>
        <Route path='libros' element={<Libros/>}/>
+       <Route path='gestion' element={<Gestion/>}/>
       </Routes>
     </div>
     </Router>
