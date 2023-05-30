@@ -1,32 +1,35 @@
 import React from 'react'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+import cien from '../img/cien.jpg'
+import jugador from '../img/jugador.png'
+import meditaciones from '../img/meditaciones.jpg'
+
+const images = [jugador,cien, meditaciones];
 
 const inicio = () => {
-  return (
-  <>
- <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="https://portadasw.com/wp-content/uploads/portadas-de-libros.jpg" class="d-block w-100" alt="..."/>
-    </div>
-    <div class="carousel-item">
-      <img src="..." class="d-block w-100" alt="..."/>
-    </div>
-    <div class="carousel-item">
-      <img src="..." class="d-block w-100" alt="..."/>
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-  </>
 
-  )
+  const settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1
+};
+return (
+  <div> 
+    <Slider {...settings}>
+    {images.map(image => (
+      <div key={image} >
+        <img src={image} alt="Imagen" style={{marginTop:40, marginLeft:600}} />
+      </div>
+    ))}
+  </Slider>
+  </div>
+);
+
+ 
 }
 
 export default inicio

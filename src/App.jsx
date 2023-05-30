@@ -24,7 +24,7 @@ function App() {
 
   return firebaseUser !==false ? (
     <Router>
-    <div className='container'>
+    <div>
       <Navbar firebaseUser={firebaseUser}/>
       <Routes>
        <Route path='/' element={<Inicio/>}/>
@@ -32,7 +32,7 @@ function App() {
        <Route path='libros' element={<Libros/>}/>
        <Route path='gestion' element={<Gestion/>}/>
       </Routes>
-      <Footer />
+      <Footer/>
     </div>
     </Router>
     
