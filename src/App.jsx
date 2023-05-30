@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes,Route } from 'react-router-dom'
 import Inicio from './components/inicio'
-import Login from './components/login'
+import Login from './components/Login'
 import Libros from './components/Libros'
 import Navbar from './components/Navbar'
 import Gestion from './components/Gestion'
