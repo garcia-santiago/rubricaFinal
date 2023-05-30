@@ -43,7 +43,6 @@ const login=React.useCallback(async()=>{
       setPass('')
       setError('')
       navigate('/libros')
-      location.reload()
   } catch (error) {
       console.log(error.code);
       if (error.code==='auth/wrong-password') {
