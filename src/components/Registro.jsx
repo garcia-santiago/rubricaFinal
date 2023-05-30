@@ -6,17 +6,17 @@ const Registro = () => {
   //hooks
   const [lista,setLista]=React.useState([])
   //leer
-  React.useEffect(()=>{
-    const obtenerdatos=async()=>{
-      try {
-        const data=await db.collection('libros').get()
-        //console.log(data.docs);
-        const arrayData=data.docs.map(doc=>({id:doc.id,...doc.data()}))
-        setLista(arrayData.filter(libro => libro.disponibilidad == 'SI'))
-      } catch (error) {
-        console.error(error);
-      }
+  const obtenerdatos=async()=>{
+    try {
+      const data=await db.collection('libros').get()
+      //console.log(data.docs);
+      const arrayData=data.docs.map(doc=>({id:doc.id,...doc.data()}))
+      setLista(arrayData.filter(libro => libro.disponibilidad == 'SI'))
+    } catch (error) {
+      console.error(error);
     }
+  }
+  React.useEffect(()=>{
     obtenerdatos()
   },[])
   const alquilarLibro = (idLibro) => {
@@ -28,19 +28,35 @@ const Registro = () => {
       usuario.get().then(async (res2) => {
         await libro.update({"disponibilidad": 'NO'})
         await usuario.update({"librosPrestados": [...res2.data().librosPrestados, libroDoc]}) 
+        location.reload()
       })
 
     })
 
   }
-  const devolverLibro = (idLibro) => {
-    console.log(idLibro)
+  const filtroBusqueda = (e) => {
+    if(e.target.value == ''){
+      console.log('empty')
+      obtenerdatos();
+    }
+    else{
+      setLista(lista.filter(libro => {
+        return libro.titulo.toLowerCase().includes(e.target.value.toLowerCase())
+      }))
+    }
+
+    console.log(lista)
   }
   return (
     <div className='container'>
       <h2 className='text-center text-primary'>Libros Disponibles</h2>
       <table className="table table-bordered">
         <thead>
+          <tr>
+            <td colSpan='6'>
+              <input type="text" style={{width:'100%'}} onChange={(e) => filtroBusqueda(e)} placeholder='Titulo del libro'/>
+            </td>
+          </tr>
           <tr>
             <th>Autor</th>
             <th>Descripcion</th>
@@ -51,6 +67,7 @@ const Registro = () => {
           </tr>
         </thead>
         <tbody>
+
           {
             lista.map(
               (elemento)=>(
@@ -62,9 +79,6 @@ const Registro = () => {
                   <td>{elemento.titulo}</td>
                   <td>{elemento.año}</td>
                   <td>
-                    {/* <button 
-                    onClick={()=>devolverLibro(elemento.id)} 
-                    className='btn btn-danger float-end me-2'>Devolver</button> */}
                     <button 
                     onClick={()=>alquilarLibro(elemento.id)} 
                     className='btn btn-info float-end me-2'>Alquilar</button>
