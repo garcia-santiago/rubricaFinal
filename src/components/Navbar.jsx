@@ -44,8 +44,18 @@ const navbar = (props) => {
           alt="example"
         />
      </Link>
+     {
+                props.firebaseUser !==null ?
+                (<span className='text-light'>{props.firebaseUser.email}</span>):
+                null
+    }
      <div className='d-flex'>
-       <Link className='btn btn-dark' to='/'>Inicio</Link>
+
+
+
+            <Link className='btn btn-dark' to='/'>Inicio</Link>
+
+            
             {
                 props.firebaseUser !==null ?
                 (<Link className='btn btn-dark' to="/libros">Libros</Link>):
