@@ -72,6 +72,7 @@ const registrar=React.useCallback(async()=>{
       setPass('')
       setError('')
       setModoRegistro(false)
+      location.reload()
   } catch (error) {
       console.log(error.code);
       if (error.code==='auth/invalid-email') {
