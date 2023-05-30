@@ -1,6 +1,7 @@
 import React from 'react'
 import { auth } from '../firebase'
 import { useNavigate} from 'react-router-dom'
+import Prestados from './Prestados'
 import Registro from './Registro'
 
 const libros = () => {
@@ -20,8 +21,7 @@ const libros = () => {
         
         {
             user && (
-                <h3>Usuario: {user.email}</h3>
-                
+                <Prestados user={user}/>
             )
             
         }
