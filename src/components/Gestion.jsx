@@ -200,46 +200,45 @@ const editarDatos=async(e)=>{
 
 
       <h2 className='text-center text-primary'>Listado de Libros</h2>
-     <table className="table table-bordered">
-          <thead>
-            <tr>
-              <th>Titulo</th>
-              <th>Autor</th>
-              <th>Descripcion</th>
-              <th>Año</th>
-              <th>Disponible</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-          {
-           lista.map(
-             (elemento)=>(
-                 
-                 <tr  key={elemento.id}>
-                  <td>{elemento.titulo}</td>
-                  <td>{elemento.autor}</td>
-                  <td>{elemento.descripcion}</td>
-                  <td>{elemento.año}</td>
-                  <td>{elemento.disponibilidad}</td>
-                  <td>
-                    <button 
-                    onClick={()=>eliminarDato(elemento.id)} 
-                    className='btn btn-danger float-end me-2'>Eliminar</button>
-                    <button 
-                    onClick={()=>editar(elemento)} 
-                    className='btn btn-warning float-end me-2'>Editar</button>
-                  </td>
-               </tr>
-             )
-           )
-         } 
-          
-          </tbody>
-        </table>
-
-
-
+      <div className="table-responsive">
+        <table className="table table-bordered">
+            <thead>
+              <tr>
+                <th>Titulo</th>
+                <th>Autor</th>
+                <th>Descripcion</th>
+                <th>Año</th>
+                <th>Disponible</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+            {
+            lista.map(
+              (elemento)=>(
+                  
+                  <tr  key={elemento.id}>
+                    <td>{elemento.titulo}</td>
+                    <td>{elemento.autor}</td>
+                    <td>{elemento.descripcion}</td>
+                    <td>{elemento.año}</td>
+                    <td>{elemento.disponibilidad}</td>
+                    <td>
+                      <button 
+                      onClick={()=>eliminarDato(elemento.id)} 
+                      className='btn btn-danger float-end me-2'>Eliminar</button>
+                      <button 
+                      onClick={()=>editar(elemento)} 
+                      className='btn btn-warning float-end me-2'>Editar</button>
+                    </td>
+                </tr>
+              )
+            )
+          } 
+            
+            </tbody>
+          </table>
+      </div>
     </div>
   )
  

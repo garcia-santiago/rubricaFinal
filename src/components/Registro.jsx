@@ -49,6 +49,8 @@ const Registro = () => {
   }
   return (
     <div className='container'>
+      <div className="table-responsive">
+
       <h2 className='text-center text-primary'>Libros Disponibles</h2>
       <table className="table table-bordered">
         <thead>
@@ -91,6 +93,8 @@ const Registro = () => {
         </tbody>
       </table>
     </div>
+    </div>
+
   )
 }
 

@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes,Route } from 'react-router-dom'
-import Inicio from './components/inicio'
+import Inicio from './components/Inicio'
 import Login from './components/Login'
 import Libros from './components/Libros'
 import Navbar from './components/Navbar'

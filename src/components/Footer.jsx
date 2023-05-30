@@ -2,8 +2,8 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <div>
-      <footer className="container-fluid py-3 my-4 border-top">
+    <div className='container'>
+      <footer className="container-fluid py-3 my-4 border-top fixed-bottom bg-light">
         <div className="row">
           <div className="col-md-4 d-flex align-items-center">
             <a className="text-muted" href="#">

@@ -36,9 +36,9 @@ const Registro = () => {
   }
   return (
     <div className='container'>
-      <div className="container">
+      <div className="table-responsive">
         <h2 className='text-center text-primary'>Libros Prestados</h2>
-        <table className="table table-bordered">
+        <table className="table table-bordered ">
               <thead>
                 <tr>
                   <th>Autor</th>
