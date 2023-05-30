@@ -20,19 +20,6 @@ const Registro = () => {
     }
     obtenerdatos()
   },[])
-  const alquilarLibro = (idLibro) => {
-    const libro = db.collection("libros").doc(idLibro)
-    libro.get().then(res => {
-      const libroDoc = res.data()
-      const usuario = db.collection("usuarios").doc(auth.currentUser.email);
-      usuario.get().then(async (res2) => {
-        await libro.update({"disponibilidad": 'NO'})
-        await usuario.update({"librosPrestados": [...res2.data().librosPrestados, libroDoc]}) 
-      })
-
-    })
-
-  }
   const devolverLibro = (idLibro) => {
     const libro = db.collection("libros").doc(idLibro)
     libro.get().then(res => {
@@ -42,6 +29,7 @@ const Registro = () => {
         await libro.update({"disponibilidad": 'SI'})
         const noPrestados = res2.data().librosPrestados.filter(lib => lib.id!=idLibro)
         await usuario.update({"librosPrestados": noPrestados}) 
+        location.reload()
       })
 
     })
